@@ -1,0 +1,59 @@
+{
+	"name": "TTasker",
+	"productName": "TTasker",
+	"description": "Time Tracking & Task Management",
+	"version": "1.0.0",
+	"author": "Kai Krause <kaikrause95@gmail.com>",
+	"copyright": "© 2018, Kai Krause <kaikrause95@gmail.com>",
+	"homepage": "https://github.com/krausekai/",
+	"license": "MIT",
+	"repository": "",
+	"keywords": [
+		"time management",
+		"task management",
+		"timer",
+		"todo"
+	],
+	"main": "main.js",
+	"build": {
+		"appId": "com.kaikrause.ttasker",
+		"asarUnpack": [
+			"./assets/"
+		],
+		"publish": [
+			{
+				"provider": "github",
+				"owner": "krausekai",
+				"repo": "ttasker"
+			}
+		],
+		"win": {
+			"target": "nsis"
+		},
+		"nsis": {
+			"oneClick": false,
+			"perMachine": false
+		},
+		"linux": {
+			"target": "AppImage",
+			"category": "Education"
+		},
+		"mac": {
+			"target": "dmg"
+		}
+	},
+	"scripts": {
+		"postinstall": "electron-builder install-app-deps",
+		"start": "electron main.js",
+		"dist:win": "electron-builder --win --ia32",
+		"dist:linux": "electron-builder --linux --x64",
+		"dist:mac": "electron-builder --mac --x64"
+	},
+	"devDependencies": {
+		"electron": "^10.1.0",
+		"electron-builder": "^22.8.0"
+	},
+	"dependencies": {
+		"electron-context-menu": "^2.3.0"
+	}
+}

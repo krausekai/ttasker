@@ -1,0 +1,268 @@
+:root {
+	--input-active-color: #7B9DD3;
+	--border-color: #ADADAD;
+	--border-color-highlight: #171717;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url("./fonts/Roboto_Mono/RobotoMono-Regular.ttf");
+}
+
+/* prevent drag-dropping of HTML elements */
+*:not(.copyable), *::after, *::before {
+	-webkit-user-select: none;
+	-webkit-user-drag: none;
+	-webkit-app-region: no-drag;
+}
+
+/*Change focus colors for inputs*/
+input:focus, select:focus, option:focus,
+input:active, select:active, option:active,
+textarea:focus, textarea:active, textarea:active
+textarea, input {
+	outline: none !important;
+	border: none;
+	/*border: 2px solid var(--input-active-color);*/
+}
+
+.button:hover, button:hover {
+	outline: none !important;
+}
+
+.button:focus, button:focus {
+	outline: none !important;
+}
+
+.button:active, button:active {
+	border-color: var(--input-active-color);
+}
+
+html, body {
+	padding: 0px;
+	margin: 0px;
+	font-family: "Roboto Mono";
+	text-rendering: optimizeLegibility;
+	letter-spacing: 0.01rem;
+	-webkit-font-smoothing: antialiased;
+}
+
+.tabContent {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.stretch {
+	width: 100%;
+	display:table;
+	table-layout: fixed;
+}
+
+.padded {
+	padding: 8px;
+}
+
+button, input[type="checkbox"] {
+	cursor: pointer;
+}
+input[type="text"], input[type="text"]:focus, input[type="text"]:active,
+textarea, textarea:focus, textarea:active {
+	border: #000 1px solid;
+	padding: 2px;
+	background-color: #F5F5F5;
+}
+
+.lightTheme {
+	color: #000;
+	background-color: #fff;
+}
+.lightTheme .icon-button:hover {
+	background-color: #e8e8e8;
+}
+.darkTheme {
+	color: #F5F5F5;
+	background-color: #202225;
+}
+.darkTheme input[type="text"],
+.darkTheme textarea {
+	color: #F5F5F5;
+	background-color: #484B51;
+}
+.darkTheme button:not(.icon-button) {
+	color: #F5F5F5;
+	background-color: #484B51;
+	border: 1px solid #7D8189;
+}
+.darkTheme .icon-button:hover {
+	background-color: #484B51;
+}
+
+.menu {
+	min-width: calc(100vw - 4px);
+	max-width: calc(100vw - 4px);
+	position:fixed;
+	bottom: 0;
+	padding: 2px;
+	margin: 0 auto;
+}
+
+#timersTab .menu button {
+	width: 33.3%;
+}
+
+#tasksTab .menu button {
+	width: 100%;
+}
+
+#timersTab .content {
+	min-height: calc(100vh - 85px);
+	max-height: calc(100vh - 85px);
+	overflow-y: scroll;
+}
+
+#tasksTab .content {
+	min-height: calc(100vh - 150px);
+	max-height: calc(100vh - 150px);
+	overflow-y: scroll;
+}
+
+.icon-button {
+	padding: 2px 2px;
+	border-radius: 2px;
+	margin: 1px;
+	width: 22px;
+	height: 16px;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	border: none;
+	outline: none;
+}
+td {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.name {
+	font-weight: bold;
+	color: #7D8189;
+}
+.name, .display {
+	font-size: 19px;
+}
+/* .start icon by Daniel Bruce (https://www.flaticon.com/authors/daniel-bruce), license: http://creativecommons.org/licenses/by/3.0/ */
+.start {
+	background-image: url("./images/start-pause.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-x: 3px;
+}
+/* .reset icon by Designerz Base (https://www.iconfinder.com/Designerzbase) */
+.reset {
+	background-image: url("./images/reset.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-x: 3px;
+}
+/* .hide icon by Andrian Valeanu (https://www.iconfinder.com/designmodo), license: https://creativecommons.org/licenses/by-nc/3.0/ */
+.hide {
+	background-image: url("./images/hide.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-x: 3px;
+}
+/* .remove icon by Becris (https://www.iconfinder.com/becris) */
+.remove {
+	background-image: url("./images/remove.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-x: 3px;
+}
+/* .edit icon by https://www.iconfinder.com/stefantaubert */
+.edit {
+	background-image: url("./images/edit.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-x: 3px;
+}
+
+.addTimerBtn, .settingsMenuBtn {
+	width: 25px;
+	height: 16px;
+	background-repeat: no-repeat;
+	background-position-x: 4px;
+	border: none;
+	outline: none;
+}
+
+/* .addTimerBtn icon by Catalin Fertu (https://www.flaticon.com/authors/catalin-fertu), license: http://creativecommons.org/licenses/by/3.0/ */
+.addTimerBtn {
+	background-image: url("./images/add.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-x: 3px;
+}
+
+/* .settingsBtn icon by Anastasya Bolshakova (https://www.iconfinder.com/nastu_bol) */
+.settingsMenuBtn {
+	background-image: url("./images/settings.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-x: 3px;
+}
+.settingsMenu {
+	display: none;
+}
+
+.darkTheme .highlight {
+	color: orange;
+}
+
+.lightTheme .highlight {
+	color: red;
+}
+
+input, textarea {
+	min-width: calc(100vw - 10px);
+	max-width: calc(100vw - 10px);
+}
+
+.task, .timer {
+	padding: 2px;
+	margin: 4px;
+}
+
+.task::after, .timer::after {
+  content: '';
+	border: 1px #484B51 solid;
+  display: block;
+	width: calc(100vw - 52px);
+	overflow: hidden;
+	margin-top: 1px;
+}
+
+.darkTheme ::-webkit-scrollbar {
+	width: 17px;
+	height: 17px;
+}
+
+.darkTheme ::-webkit-scrollbar-track {
+	background-color: #484B51;
+	opacity: 0.01;
+	border: 1px solid gray;
+}
+
+.darkTheme ::-webkit-scrollbar-thumb {
+	background: lightgray;
+	border: 1px solid lightgray;
+}
+
+.darkTheme ::-webkit-scrollbar-thumb:window-inactive {
+	background: #484B51;
+}
+
+.detail {
+	font-size: 12px;
+}
+
+.darkTheme a {
+	color: lightskyblue;
+}

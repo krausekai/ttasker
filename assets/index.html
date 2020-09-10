@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TTasker</title>
+		<link rel="stylesheet" href="./style.css">
+	</head>
+
+	<body class="darkTheme">
+		<header class="greybg center">
+			<div class="stretch">
+				<button class="mainBtn tablinks">Timers</button>
+				<button class="mainBtn tablinks">Tasks</button>
+			</div>
+		</header>
+
+		<div id="timersTab" class="tabcontent">
+			<div id="timers" class="content padded"></div>
+			<div id="timersMenuBar" class="menu stretch">
+				<input type="text" placeholder="Timer Name"><br />
+				<button id="browseDefaultDirectory">Folder</button>
+				<button onclick="changeTheme()">Theme</button>
+				<button onclick="openHistory()">History</button>
+			</div>
+		</div>
+		<div id="tasksTab" class="tabcontent">
+			<div id="tasks" class="content padded"></div>
+			<div id="tasksMenuBar" class="menu stretch">
+				<input type="text" placeholder="Timer Name"><br />
+				<input type="text" placeholder="Task Name"><br />
+				<textarea type="text" placeholder="Task Detail" style="resize:none"></textarea>
+				<button id="selectRandomTask">Select Random</button>
+			</div>
+		</div>
+	</body>
+
+	<script src="./js/shell.js"></script>
+	<script src="./js/easytimer/easytimer.min.js"></script>
+	<script src="./js/app.js"></script>
+</html>
