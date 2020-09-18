@@ -25,7 +25,7 @@ setInterval(() => {
 
 	// new session & date
 	session = getSession();
-	date = getSession();
+	date = getDate();
 
 	// reset timers
 	timers.reset();
