@@ -25,6 +25,18 @@ window.addEventListener("click", () => {
 });
 
 /*
+	CREATE NEW SESSION
+*/
+
+/*
+const today = new Date().getDate();
+setInterval(() => {
+	if (timers.areRunning() || today === new Date().getDate()) return;
+	window.location.reload();
+}, 15000);
+*/
+
+/*
 	BUTTONS
 */
 
@@ -92,6 +104,17 @@ const timers = {
 	pause: function () {
 		for (timer of this.timers) {
 			timer.timer.pause();
+		}
+	},
+	areRunning: function () {
+		for (timer of this.timers) {
+			if (timer.timer.isRunning()) return true;
+		}
+		return false;
+	},
+	reset: function () {
+		for (timer of this.timers) {
+			timer.timer.reset();
 		}
 	},
 	timers: []

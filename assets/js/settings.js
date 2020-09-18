@@ -1,5 +1,35 @@
 const self = module.exports = {};
-const session = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+/*
+	SESSION & DATE
+*/
+
+const getSession = function() {
+	return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
+const getDate = function() {
+	// Get today's date
+	let date = new Date();
+	let dd = date.getDate();
+	let mm = date.getMonth()+1; //January is 0!
+	let yyyy = date.getFullYear();
+	let dateToday = yyyy + "/" + mm.toString().padStart(2, "0") + "/" + dd.toString().padStart(2, "0");
+	return dateToday;
+}
+
+let session = getSession();
+let date = getDate();
+setInterval(() => {
+	if (!timers || date === getDate()) return;
+
+	// new session & date
+	session = getSession();
+	date = getSession();
+
+	// reset timers
+	timers.reset();
+}, 5000);
 
 // GUI STATE / SETTINGS
 // Onload, call loadSettings(), which calls readSettings() and returns the settings object
@@ -74,19 +104,21 @@ self.saveSettings = function() {
 				timerEntry.history = self.data.timers[name].history;
 			}
 
+			/*
 			// Get today's date
 			let date = new Date();
 			let dd = date.getDate();
 			let mm = date.getMonth()+1; //January is 0!
 			let yyyy = date.getFullYear();
 			let dateToday = yyyy + "/" + mm.toString().padStart(2, "0") + "/" + dd.toString().padStart(2, "0");
+			*/
 
 			// Create the timer time entry
 			let histLen = timerEntry.history.length - 1;
 			let newTimeValues = timer.getTimeValues();
 			let newHistory = {
 				session: session,
-				date: dateToday,
+				date: date,
 				times: [newTimeValues]
 			}
 			let zeroCheck = newTimeValues.seconds || newTimeValues.minutes || newTimeValues.hours || newTimeValues.days;
