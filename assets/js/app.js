@@ -82,7 +82,9 @@ const timers = {
 	},
 	reset: function () {
 		for (timer of this.timers) {
+			let wasRunning = timer.timer.isRunning();
 			timer.timer.reset();
+			if (!wasRunning) timer.timer.pause();
 		}
 	},
 	timers: []

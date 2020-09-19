@@ -87,7 +87,7 @@ self.readSettings = async function() {
 	});
 }
 
-self.writeSettings = async function() {
+self.writeSettings = function() {
 	file.writeFileSync(settingsPath, JSON.stringify(self.data));
 }
 
@@ -115,7 +115,7 @@ self.saveSettings = function() {
 
 			// Create the timer time entry
 			let histLen = timerEntry.history.length - 1;
-			let newTimeValues = timer.getTimeValues();
+			let newTimeValues = JSON.parse(JSON.stringify(timer.getTimeValues()));
 			let newHistory = {
 				session: session,
 				date: date,
