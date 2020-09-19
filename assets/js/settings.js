@@ -21,17 +21,19 @@ const getDate = function() {
 let session = getSession();
 let date = getDate();
 function doSessionManagement () {
-	if (!timers || date === getDate()) return;
+	try {
+		if (!timers || date === getDate()) return;
 
-	// new session & date
-	session = getSession();
-	date = getDate();
+		// new session & date
+		session = getSession();
+		date = getDate();
 
-	// reset timers
-	timers.reset();
+		// reset timers
+		timers.reset();
 
-	// save settings
-	settings.saveSettings();
+		// save settings
+		settings.saveSettings();
+	} catch(e){}
 }
 
 // Autosave & on user interaction
@@ -96,7 +98,7 @@ self.saveSettings = function() {
 	self.data.theme = document.body.className;
 
 	// Save Timer States
-	if (timers) {
+	try {
 		for (let i = 0; i < timers.timers.length; i++) {
 			let timer = timers.timers[i].timer;
 			let name = timers.timers[i].name;
@@ -112,15 +114,6 @@ self.saveSettings = function() {
 			if (self.data.timers[name] && self.data.timers[name].history) {
 				timerEntry.history = self.data.timers[name].history;
 			}
-
-			/*
-			// Get today's date
-			let date = new Date();
-			let dd = date.getDate();
-			let mm = date.getMonth()+1; //January is 0!
-			let yyyy = date.getFullYear();
-			let dateToday = yyyy + "/" + mm.toString().padStart(2, "0") + "/" + dd.toString().padStart(2, "0");
-			*/
 
 			// Create the timer time entry
 			let histLen = timerEntry.history.length - 1;
@@ -154,11 +147,9 @@ self.saveSettings = function() {
 
 			self.data.timers[name] = timerEntry;
 		}
-	}
 
-	if (tasks) {
 		self.data.tasks = tasks.tasks;
-	}
+	} catch(e){}
 
 	self.writeSettings();
 }
