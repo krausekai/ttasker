@@ -21,19 +21,17 @@ const getDate = function() {
 let session = getSession();
 let date = getDate();
 function doSessionManagement () {
+	// re-initialize session, date & timers
 	try {
-		if (!timers || date === getDate()) return;
-
-		// new session & date
-		session = getSession();
-		date = getDate();
-
-		// reset timers
-		timers.reset();
-
-		// save settings
-		settings.saveSettings();
+		if (timers && date !== getDate()) {
+			session = getSession();
+			date = getDate();
+			timers.reset();
+		}
 	} catch(e){}
+
+	// save settings
+	self.saveSettings();
 }
 
 // Autosave & on user interaction
@@ -94,11 +92,11 @@ self.writeSettings = async function() {
 }
 
 self.saveSettings = function() {
-	// Save Theme State
-	self.data.theme = document.body.className;
-
-	// Save Timer States
 	try {
+		// Save Theme State
+		self.data.theme = document.body.className;
+
+		// Save Timer States
 		for (let i = 0; i < timers.timers.length; i++) {
 			let timer = timers.timers[i].timer;
 			let name = timers.timers[i].name;
@@ -148,8 +146,11 @@ self.saveSettings = function() {
 			self.data.timers[name] = timerEntry;
 		}
 
+		// save task states
 		self.data.tasks = tasks.tasks;
-	} catch(e){}
 
-	self.writeSettings();
+		console.log("a")
+
+		self.writeSettings();
+	} catch(e){}
 }
