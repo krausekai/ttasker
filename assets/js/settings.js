@@ -149,8 +149,6 @@ self.saveSettings = function() {
 		// save task states
 		self.data.tasks = tasks.tasks;
 
-		console.log("a")
-
 		self.writeSettings();
 	} catch(e){}
 }
