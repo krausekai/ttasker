@@ -5,38 +5,6 @@ const tabs = require("./js/tabs");
 tabs.onload();
 
 /*
-	SAVING
-*/
-
-// Autosave every 10 seconds
-setInterval(() => {
-	settings.saveSettings();
-}, 10000);
-
-// Autosave on window click/interaction
-window.addEventListener("focus", () => {
-	settings.saveSettings();
-});
-window.addEventListener("blur", () => {
-	settings.saveSettings();
-});
-window.addEventListener("click", () => {
-	settings.saveSettings();
-});
-
-/*
-	CREATE NEW SESSION
-*/
-
-/*
-const today = new Date().getDate();
-setInterval(() => {
-	if (timers.areRunning() || today === new Date().getDate()) return;
-	window.location.reload();
-}, 15000);
-*/
-
-/*
 	BUTTONS
 */
 

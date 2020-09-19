@@ -20,7 +20,7 @@ const getDate = function() {
 
 let session = getSession();
 let date = getDate();
-setInterval(() => {
+function doSessionManagement () {
 	if (!timers || date === getDate()) return;
 
 	// new session & date
@@ -29,7 +29,16 @@ setInterval(() => {
 
 	// reset timers
 	timers.reset();
-}, 5000);
+
+	// save settings
+	settings.saveSettings();
+}
+
+// Autosave & on user interaction
+setInterval(doSessionManagement, 2000);
+window.addEventListener("focus", doSessionManagement);
+window.addEventListener("blur", doSessionManagement);
+window.addEventListener("click", doSessionManagement);
 
 // GUI STATE / SETTINGS
 // Onload, call loadSettings(), which calls readSettings() and returns the settings object
