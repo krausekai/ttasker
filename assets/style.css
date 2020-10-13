@@ -81,7 +81,7 @@ textarea, textarea:focus, textarea:active {
 }
 
 .darkTheme .highlighted {
-	color: darkorange;
+	color: orange;
 }
 
 .lightTheme .highlighted {
