@@ -96,14 +96,21 @@ function drawTimerDisplay(id) {
 	let name = instance.getElementsByClassName("timerName")[0].innerText;
 	let display = instance.getElementsByClassName("timerDisplay")[0];
 
+	timer.addEventListener("started", function (e) {
+		instance.classList.add("highlighted");
+    display.innerText = timer.getTimeValues().toString();
+	});
 	timer.addEventListener("secondsUpdated", function (e) {
 		display.innerText = timer.getTimeValues().toString();
 	});
-	timer.addEventListener("started", function (e) {
-    display.innerText = timer.getTimeValues().toString();
-	});
 	timer.addEventListener("reset", function (e) {
 		display.innerText = timer.getTimeValues().toString();
+	});
+	timer.addEventListener("paused", function (e) {
+		instance.classList.remove("highlighted");
+	});
+	timer.addEventListener("stopped", function (e) {
+		instance.classList.remove("highlighted");
 	});
 
 	let startButton = instance.getElementsByClassName("start")[0];
@@ -327,10 +334,11 @@ function removeTask(e) {
 function selectRandomTask(e) {
 	let rnd = tasks.getRandom();
 
-	let highlighted = document.getElementsByClassName("highlight");
-	if (highlighted.length) highlighted[0].classList.remove("highlight");
+	let tasksTab = document.getElementById("tasksTab");
+	let highlighted = tasksTab.getElementsByClassName("highlighted");
+	if (highlighted.length) highlighted[0].classList.remove("highlighted");
 
-	let htmlTasks = document.getElementsByClassName("task");
+	let htmlTasks = tasksTab.getElementsByClassName("task");
 	for (let htmlTask of htmlTasks) {
 		let timerName = htmlTask.getElementsByClassName("timerName")[0].innerText;
 		let taskName = htmlTask.getElementsByClassName("taskName")[0].innerText;
@@ -338,7 +346,7 @@ function selectRandomTask(e) {
 
 		if (timerName === rnd.timerName && taskName === rnd.taskName) {
 			detail.innerHTML = rnd.detail;
-			htmlTask.classList.add("highlight");
+			htmlTask.classList.add("highlighted");
 			htmlTask.scrollIntoView();
 			break;
 		}

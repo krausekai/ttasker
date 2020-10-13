@@ -35,7 +35,7 @@ function doSessionManagement () {
 }
 
 // Autosave & on user interaction
-setInterval(doSessionManagement, 2000);
+setInterval(doSessionManagement, 10000);
 window.addEventListener("focus", doSessionManagement);
 window.addEventListener("blur", doSessionManagement);
 window.addEventListener("click", doSessionManagement);

@@ -27,8 +27,7 @@ shellInteractions.onload();
 // Manage clipboard
 function manageClipboard(e) {
 	e = window.e || e;
-
-	if (e.target.className.includes("copyable")) {
+	if (e.target?.className.includes("copyable")) {
 		clipboard.writeText(e.target.innerText);
 	}
 }
@@ -41,7 +40,7 @@ async function defaultClickback(e) {
 	if (e.which == 3) return;
 
 	try {
-		if (e.target.localName.toLowerCase() == "a" || e.target.parentNode.nodeName.toLowerCase() == "a") {
+		if (e.target.href || e.target.parentNode.href) {
 			let url;
 			if (e.target.href) url = e.target.href;
 			else if (e.target.parentNode.href) url = e.target.parentNode.href;

@@ -74,11 +74,20 @@ textarea, textarea:focus, textarea:active {
 
 .lightTheme {
 	color: #000;
-	background-color: #fff;
+	background-color: #FCFCFC;
 }
 .lightTheme .icon-button:hover {
 	background-color: #e8e8e8;
 }
+
+.darkTheme .highlighted {
+	color: darkorange;
+}
+
+.lightTheme .highlighted {
+	color: blue;
+}
+
 .darkTheme {
 	color: #F5F5F5;
 	background-color: #202225;
@@ -210,14 +219,6 @@ td {
 }
 .settingsMenu {
 	display: none;
-}
-
-.darkTheme .highlight {
-	color: orange;
-}
-
-.lightTheme .highlight {
-	color: red;
 }
 
 input, textarea {
