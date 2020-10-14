@@ -23,10 +23,14 @@ let date = getDate();
 function doSessionManagement () {
 	// re-initialize session, date & timers
 	try {
-		if (timers && date !== getDate()) {
-			session = getSession();
-			date = getDate();
-			timers.reset();
+		if (date !== getDate()) {
+			// reset at a specific 24-hour set time, e.g. 9am...
+			// TODO: Expose a UI setting to dynamically change daily reset time by hh:mm
+			if (new Date().getHours() >= 12 && new Date().getMinutes() >= 0) {
+				session = getSession();
+				date = getDate();
+				if (timers) timers.reset();
+			}
 		}
 	} catch(e){}
 
