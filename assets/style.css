@@ -25,7 +25,7 @@ html, body {
 	-webkit-font-smoothing: antialiased;
 }
 
-.menu, .button, button {
+.menu, #settingsTab, .button, button {
 	font-size: 13.3px;
 }
 
@@ -273,4 +273,9 @@ td {
 
 .darkTheme a {
 	color: lightskyblue;
+}
+
+#settingsTab input {
+	width: 35px;
+	max-width: 35px;
 }

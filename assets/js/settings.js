@@ -11,6 +11,15 @@ const getSession = function() {
 const getDate = function() {
 	// Get today's date
 	let date = new Date();
+
+	// adjust the date backward by new day start time
+	let nhh = parseInt(localStorage.getItem("newTimeHour")) || 0;
+	if (date.getHours() < nhh) {
+		date.setDate(date.getDate() - 1);
+		console.log("true")
+	}
+
+	// return formatted date string
 	let dd = date.getDate();
 	let mm = date.getMonth()+1; //January is 0!
 	let yyyy = date.getFullYear();
@@ -24,14 +33,9 @@ function doSessionManagement () {
 	// re-initialize session, date & timers
 	try {
 		if (date !== getDate()) {
-			// reset at a specific 24-hour set time, e.g. 9am...
-			let nhh = parseInt(localStorage.getItem("newTimeHour")) || 0;
-			let nmm = parseInt(localStorage.getItem("newTimeMinute")) || 0;
-			if (new Date().getHours() >= nhh && new Date().getMinutes() >= nmm) {
-				session = getSession();
-				date = getDate();
-				if (timers) timers.reset();
-			}
+			session = getSession();
+			date = getDate();
+			if (timers) timers.reset();
 		}
 	} catch(e){}
 
