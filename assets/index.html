@@ -34,17 +34,26 @@
 
 		<div id="settingsTab" class="tabcontent">
 			<div class="content padded">
-				Start Next Day At Hour: <input type="number" id="newTimeHour" min="0" max="23" onkeyup="if(parseInt(this.value) >= this.max) this.value = this.max;"><br />
-				<script>
-					function updateTime() {
-						let nhh = document.querySelector("#newTimeHour");
-						nhh.setAttribute('value', parseInt(localStorage.getItem("newTimeHour")) || 0);
-						localStorage.setItem("newTimeHour", nhh.value);
-					}
-					updateTime(); setInterval(updateTime, 500);
-				</script>
-				<button id="browseDefaultDirectory">Settings Folder</button>
-				<button onclick="changeTheme()">Change Theme</button><br />
+				<p>
+					Start Next Day At Hour: <input type="number" id="newTimeHour" min="0" max="23" onkeyup="if(parseInt(this.value) >= this.max) this.value = this.max;">
+					<script>
+						function updateTime() {
+							let nhh = document.querySelector("#newTimeHour");
+							nhh.setAttribute("value", parseInt(localStorage.getItem("newTimeHour")) || 0);
+							localStorage.setItem("newTimeHour", nhh.value);
+						}
+						updateTime(); setInterval(updateTime, 500);
+					</script>
+				</p>
+				<p>
+					<button id="browseDefaultDirectory">Settings Folder</button>
+					<button onclick="changeTheme()">Change Theme</button>
+				</p>
+				<p>
+					<a href="https://github.com/krausekai/ttasker/">Github</a>
+					 |
+					<a href="https://www.krausekai.com/donate/">Donate ❤</a>
+				</p>
 			</div>
 		</div>
 	</body>
