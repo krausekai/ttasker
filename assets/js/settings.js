@@ -16,7 +16,6 @@ const getDate = function() {
 	let nhh = parseInt(localStorage.getItem("newTimeHour")) || 0;
 	if (date.getHours() < nhh) {
 		date.setDate(date.getDate() - 1);
-		console.log("true")
 	}
 
 	// return formatted date string
