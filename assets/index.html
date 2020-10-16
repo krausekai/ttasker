@@ -10,6 +10,7 @@
 			<div class="stretch">
 				<button class="mainBtn tablinks">Timers</button>
 				<button class="mainBtn tablinks">Tasks</button>
+				<button class="mainBtn tablinks">Settings</button>
 			</div>
 		</header>
 
@@ -17,11 +18,10 @@
 			<div id="timers" class="content padded"></div>
 			<div id="timersMenuBar" class="menu stretch">
 				<input type="text" placeholder="Timer Name"><br />
-				<button id="browseDefaultDirectory">Folder</button>
-				<button onclick="changeTheme()">Theme</button>
-				<button onclick="openHistory()">History</button>
+				<button onclick="openHistory()" style="width:100%">View History</button>
 			</div>
 		</div>
+
 		<div id="tasksTab" class="tabcontent">
 			<div id="tasks" class="content padded"></div>
 			<div id="tasksMenuBar" class="menu stretch">
@@ -29,6 +29,32 @@
 				<input type="text" placeholder="Task Name"><br />
 				<textarea type="text" placeholder="Task Detail" style="resize:none"></textarea>
 				<button id="selectRandomTask">Select Random</button>
+			</div>
+		</div>
+
+		<div id="settingsTab" class="tabcontent">
+			<div class="content padded">
+				Start Next Day At<br />
+					Hour:
+						<input type="number" id="newTimeHour" min="0" max="23" onkeyup="if(parseInt(this.value) >= this.max) this.value = this.max;"><br />
+					Minute:
+						<input type="number" id="newTimeMinute" min="0" max="59" onkeyup="if(parseInt(this.value) >= this.max) this.value = this.max;"><br />
+				<script>
+					function updateTime() {
+						let nhh = document.querySelector("#newTimeHour");
+						let nmm = document.querySelector("#newTimeMinute");
+
+						nhh.setAttribute('value', parseInt(localStorage.getItem("newTimeHour")) || 0);
+						nmm.setAttribute('value', parseInt(localStorage.getItem("newTimeMinute")) || 0);
+
+						localStorage.setItem("newTimeHour", nhh.value);
+						localStorage.setItem("newTimeMinute", nmm.value);
+					}
+					updateTime();
+					setInterval(updateTime, 500);
+				</script>
+				<button id="browseDefaultDirectory">Settings Folder</button>
+				<button onclick="changeTheme()">Change Theme</button><br />
 			</div>
 		</div>
 	</body>

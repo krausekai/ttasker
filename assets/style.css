@@ -4,16 +4,29 @@
 	--border-color-highlight: #171717;
 }
 
-@font-face {
-	font-family: "Roboto Mono";
-	src: url("./fonts/Roboto_Mono/RobotoMono-Regular.ttf");
-}
-
 /* prevent drag-dropping of HTML elements */
 *:not(.copyable), *::after, *::before {
 	-webkit-user-select: none;
 	-webkit-user-drag: none;
 	-webkit-app-region: no-drag;
+}
+
+@font-face {
+	font-family: "Roboto Mono";
+	src: url("./fonts/Roboto_Mono/RobotoMono-Regular.ttf");
+}
+
+html, body {
+	padding: 0px;
+	margin: 0px;
+	font-family: "Roboto Mono";
+	text-rendering: optimizeLegibility;
+	letter-spacing: 0.01rem;
+	-webkit-font-smoothing: antialiased;
+}
+
+.menu, .button, button {
+	font-size: 13.3px;
 }
 
 /*Change focus colors for inputs*/
@@ -38,15 +51,6 @@ textarea, input {
 	border-color: var(--input-active-color);
 }
 
-html, body {
-	padding: 0px;
-	margin: 0px;
-	font-family: "Roboto Mono";
-	text-rendering: optimizeLegibility;
-	letter-spacing: 0.01rem;
-	-webkit-font-smoothing: antialiased;
-}
-
 .tabContent {
 	width: 100%;
 	margin: 0 auto;
@@ -65,7 +69,7 @@ html, body {
 button, input[type="checkbox"] {
 	cursor: pointer;
 }
-input[type="text"], input[type="text"]:focus, input[type="text"]:active,
+input, input:focus, input:active,
 textarea, textarea:focus, textarea:active {
 	border: #000 1px solid;
 	padding: 2px;
@@ -92,7 +96,7 @@ textarea, textarea:focus, textarea:active {
 	color: #F5F5F5;
 	background-color: #202225;
 }
-.darkTheme input[type="text"],
+.darkTheme input,
 .darkTheme textarea {
 	color: #F5F5F5;
 	background-color: #484B51;
@@ -124,14 +128,14 @@ textarea, textarea:focus, textarea:active {
 }
 
 #timersTab .content {
-	min-height: calc(100vh - 85px);
-	max-height: calc(100vh - 85px);
+	min-height: calc(100vh - 81px);
+	max-height: calc(100vh - 81px);
 	overflow-y: scroll;
 }
 
 #tasksTab .content {
-	min-height: calc(100vh - 150px);
-	max-height: calc(100vh - 150px);
+	min-height: calc(100vh - 142px);
+	max-height: calc(100vh - 142px);
 	overflow-y: scroll;
 }
 
@@ -150,6 +154,7 @@ td {
 	padding-top: 2px;
 	padding-bottom: 2px;
 }
+/*
 .name {
 	font-weight: bold;
 	color: #7D8189;
@@ -157,6 +162,7 @@ td {
 .name, .display {
 	font-size: 19px;
 }
+*/
 /* .start icon by Daniel Bruce (https://www.flaticon.com/authors/daniel-bruce), license: http://creativecommons.org/licenses/by/3.0/ */
 .start {
 	background-image: url("./images/start-pause.svg");
@@ -221,7 +227,8 @@ td {
 	display: none;
 }
 
-input, textarea {
+#timersTab input, #timersTab textarea,
+#tasksTab input, #tasksTab textarea {
 	min-width: calc(100vw - 10px);
 	max-width: calc(100vw - 10px);
 }

@@ -26,7 +26,9 @@ function doSessionManagement () {
 		if (date !== getDate()) {
 			// reset at a specific 24-hour set time, e.g. 9am...
 			// TODO: Expose a UI setting to dynamically change daily reset time by hh:mm
-			if (new Date().getHours() >= 12 && new Date().getMinutes() >= 0) {
+			let nhh = parseInt(localStorage.getItem("newTimeHour")) || 0;
+			let nmm = parseInt(localStorage.getItem("newTimeMinute")) || 0;
+			if (new Date().getHours() >= nhh && new Date().getMinutes() >= nmm) {
 				session = getSession();
 				date = getDate();
 				if (timers) timers.reset();
