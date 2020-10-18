@@ -19,7 +19,7 @@ function formatHistory() {
 		let history = settings.data.timers[entry].history;
 
 		let tableEntry;
-		for (record of history) {
+		for (let record of history) {
 			if (!tableEntry || tableEntry.date != record.date) {
 				tableEntry = JSON.parse(JSON.stringify(tableEntryTemplate));
 				tableEntry.name = settings.data.timers[entry].name;
@@ -27,7 +27,7 @@ function formatHistory() {
 				tableEntries.push(tableEntry);
 			}
 
-			for (time of record.times) {
+			for (let time of record.times) {
 				tableEntries[tableEntries.length-1].time.secondTenths += time.secondTenths;
 				tableEntries[tableEntries.length-1].time.seconds += time.seconds;
 				tableEntries[tableEntries.length-1].time.minutes += time.minutes;
@@ -63,7 +63,7 @@ function formatHistory() {
 			return { hours: rhours, minutes: rminutes };
 		}
 
-		for (entry of tableEntries) {
+		for (let entry of tableEntries) {
 			let timeFromSeconds = secondsToTime(entry.time.seconds);
 
 			entry.time.seconds = timeFromSeconds.seconds;
@@ -86,7 +86,7 @@ function drawCell() {
 	let body = document.getElementsByClassName("padded")[0];
 
 	let lastDate = "";
-	for (entry of tableEntries) {
+	for (let entry of tableEntries) {
 		if (entry.date !== lastDate) {
 			lastDate = entry.date;
 			body.innerHTML += "<span style='display: inline-block; margin: 4px 0'><b>" + entry.date +"</b></span><br />";

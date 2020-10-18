@@ -131,23 +131,24 @@ self.saveSettings = function() {
 			}
 			let zeroCheck = newTimeValues.seconds || newTimeValues.minutes || newTimeValues.hours || newTimeValues.days;
 
-			// Do not push empty times to the history list
-			if (zeroCheck > 0) {
-				// Create a new history item if this is a new timer session
-				if (!timerEntry.history[histLen] || timerEntry.history[histLen].date !== newHistory.date) {
+			// Create a new history item if this is a new timer session
+			if (!timerEntry.history[histLen] || timerEntry.history[histLen].date !== newHistory.date) {
+				// Do not push empty times to the history list
+				if (zeroCheck > 0) {
 					timerEntry.history.push(newHistory);
 				}
-				// Otherwise, update the current date's stored time
-				else if (timerEntry.history[histLen] && timerEntry.history[histLen].date == newHistory.date) {
-					// if session is same then overwrite time
-					if (timerEntry.history[histLen].session === session) {
-						timerEntry.history[histLen].times[timerEntry.history[histLen].times.length-1] = newTimeValues;
-					}
-					// if session is diff then add time
-					else if (timerEntry.history[histLen].session !== session) {
-						timerEntry.history[histLen].times.push(newTimeValues);
-						timerEntry.history[histLen].session = session;
-					}
+			}
+			// Otherwise, update the current date's stored time
+			else if (timerEntry.history[histLen] && timerEntry.history[histLen].date == newHistory.date) {
+				// if session is same then overwrite time
+				// Note: A reset time will also reset stored History time
+				if (timerEntry.history[histLen].session === session) {
+					timerEntry.history[histLen].times[timerEntry.history[histLen].times.length-1] = newTimeValues;
+				}
+				// if session is diff then add time
+				else if (timerEntry.history[histLen].session !== session) {
+					timerEntry.history[histLen].times.push(newTimeValues);
+					timerEntry.history[histLen].session = session;
 				}
 			}
 

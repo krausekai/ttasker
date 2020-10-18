@@ -30,6 +30,13 @@ app.on("browser-window-created", function(e,window) {
 	window.setMenu(null);
 });
 
+app.on('web-contents-created', (e, contents) => {
+	// prevent window redirect / navigation
+  contents.on('will-navigate', (e, navigationUrl) => {
+		e.preventDefault();
+  });
+});
+
 app.on("activate", function() {
 	// On OS X it's common to re-create a window in the app when the dock icon is clicked and there are no other windows open.
 	if (mainWindow === null) {

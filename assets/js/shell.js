@@ -11,7 +11,7 @@ shellInteractions.onload = function () {
 	window.eval = global.eval = null;
 
 	//Clipboard
-	document.addEventListener('click', manageClipboard)
+	document.addEventListener('click', manageClipboard);
 
 	//Disable drag drop events
 	document.addEventListener('dragover', function (e) {e.preventDefault()});
@@ -40,30 +40,29 @@ async function defaultClickback(e) {
 	if (e.which == 3) return;
 
 	try {
-		if (e.target.href || e.target.parentNode.href) {
-			let url;
-			if (e.target.href) url = e.target.href;
-			else if (e.target.parentNode.href) url = e.target.parentNode.href;
+		if (e.target.localName.toLowerCase() == "a" || e.target.parentNode.nodeName.toLowerCase() == "a") {
+			if (e.target.href || e.target?.parentNode.href) {
+				e.preventDefault();
 
-			e.preventDefault();
+				let url = e.target.href || e.target?.parentNode.href;
 
-			if (!url || url.endsWith("#nullify")) return;
+				if (!url || url.endsWith("#nullify")) return;
 
-			// local file fix
-			if (url.startsWith("file:")) {
-				url = decodeURIComponent(url);
-				url = url.replace(/^file:\/+/, "");
-				await shell.openPath(url);
+				// local file fix
+				if (url.startsWith("file:")) {
+					url = decodeURIComponent(url);
+					url = url.replace(/^file:\/+/, "");
+					await shell.openPath(url);
+				}
+
+				await shell.openExternal(url);
 			}
-
-			await shell.openExternal(url);
 		}
 	}
 	catch(err) {
-		console.error(err + ": " + e.target.href);
+		console.error(err + ": ");
 	}
 }
-
 
 /*
 	SCROLL BEHAVIOR

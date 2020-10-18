@@ -57,7 +57,7 @@ function openHistory() {
 
 const timers = {
 	get: function(name) {
-		for (timer of this.timers) {
+		for (let timer of this.timers) {
 			if (timer.name.toString().toLowerCase() === name.toString().toLowerCase()) {
 				return timer;
 			}
@@ -70,18 +70,18 @@ const timers = {
 		this.timers.push({name: name, timer: timer});
 	},
 	pause: function () {
-		for (timer of this.timers) {
+		for (let timer of this.timers) {
 			timer.timer.pause();
 		}
 	},
 	areRunning: function () {
-		for (timer of this.timers) {
+		for (let timer of this.timers) {
 			if (timer.timer.isRunning()) return true;
 		}
 		return false;
 	},
 	reset: function () {
-		for (timer of this.timers) {
+		for (let timer of this.timers) {
 			let wasRunning = timer.timer.isRunning();
 			timer.timer.reset();
 			if (!wasRunning) timer.timer.pause();
@@ -183,7 +183,7 @@ function clearTimerForm() {
 
 const tasks = {
 	get: function(timerName, taskName) {
-		for (task of this.tasks) {
+		for (let task of this.tasks) {
 			if (task.timerName.toString().toLowerCase() === timerName.toString().toLowerCase() &&
 					task.taskName.toString().toLowerCase() === taskName.toString().toLowerCase()) {
 				return task;
@@ -191,7 +191,7 @@ const tasks = {
 		}
 	},
 	replace: function(timerName, taskName, detail) {
-		for (task of this.tasks) {
+		for (let task of this.tasks) {
 			if (task.timerName.toString().toLowerCase() === timerName.toString().toLowerCase() &&
 					task.taskName.toString().toLowerCase() === taskName.toString().toLowerCase()) {
 				task.detail = detail;
@@ -365,7 +365,7 @@ window.onload = function () {
 
 		// load tasks
 		if (settingsData.tasks) {
-			for (task of settingsData.tasks) {
+			for (let task of settingsData.tasks) {
 				drawTaskCell(task.timerName, task.taskName, task.detail);
 			}
 		}
