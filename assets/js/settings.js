@@ -87,7 +87,7 @@ self.readSettings = async function() {
 			if (!self.data.timers) self.data.timers = {};
 
 			// Apply Settings
-			document.body.className = self.data.theme;
+			document.querySelector("html").className = self.data.theme;
 
 			// Return settings data
 			res(self.data);
@@ -102,7 +102,7 @@ self.writeSettings = function() {
 self.saveSettings = function() {
 	try {
 		// Save Theme State
-		self.data.theme = document.body.className;
+		self.data.theme = document.querySelector("html").className;
 
 		// Save Timer States
 		for (let i = 0; i < timers.timers.length; i++) {
