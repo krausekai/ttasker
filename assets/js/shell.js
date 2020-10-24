@@ -90,8 +90,8 @@ function scrollSpeed (event) {
 	// walk up the DOM to find the parent scrollable element
 	let scrollingElement = getScrollingElement(event.target);
 
-	// change the scroll distance by element height
-	let dist = (scrollingElement.offsetHeight || 0) / 4.2;
+	// change the scroll distance by element height, capped to window height
+	let dist = (Math.min(scrollingElement.offsetHeight, window.outerHeight) || 0) / 4.2;
 	if (delta > 0) dist = dist - (dist * 2);
 
 	// override scrollTo position
