@@ -60,7 +60,9 @@ function createMainWindow() {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
 		alwaysOnTop: true,
-		width: 275,
+		minWidth: 270,
+		width: 270,
+		minHeight: 350,
 		height: 350,
 		webPreferences: {
 			backgroundThrottling: false,

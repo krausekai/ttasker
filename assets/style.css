@@ -242,7 +242,7 @@ td {
   content: '';
 	border: 1px #484B51 solid;
   display: block;
-	width: calc(100vw - 52px);
+	width: calc(100vw - 48px);
 	overflow: hidden;
 	margin-top: 1px;
 }
