@@ -27,9 +27,9 @@ function showHide(e) {
 	else if (el.style.display == "block") el.style.display = "none";
 }
 function changeTheme() {
-	let theme = document.body.className;
-	if (theme == "lightTheme") document.body.className = "darkTheme";
-	else if (theme == "darkTheme") document.body.className = "lightTheme";
+	let theme = document.querySelector("html").className;
+	if (theme == "lightTheme") document.querySelector("html").className = "darkTheme";
+	else if (theme == "darkTheme") document.querySelector("html").className = "lightTheme";
 }
 
 window.addEventListener("keypress", (e) => {
