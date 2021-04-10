@@ -54,8 +54,9 @@ async function defaultClickback(e) {
 					url = url.replace(/^file:\/+/, "");
 					await shell.openPath(url);
 				}
-
-				await shell.openExternal(url);
+				else {
+					await shell.openExternal(url);
+				}
 			}
 		}
 	}
