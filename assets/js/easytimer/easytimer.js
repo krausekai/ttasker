@@ -1,14 +1,52 @@
 /**
  * easytimer.js
- * Generated: 2020-06-20
- * Version: 4.3.0
+ * Generated: 2021-09-24
+ * Version: 4.5.1
  */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.easytimer = {}));
-}(this, (function (exports) { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.easytimer = {}));
+})(this, (function (exports) { 'use strict';
+
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+
+      if (enumerableOnly) {
+        symbols = symbols.filter(function (sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });
+      }
+
+      keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(Object(source)).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
+
+    return target;
+  }
 
   function _typeof(obj) {
     "@babel/helpers - typeof";
@@ -39,40 +77,6 @@
     }
 
     return obj;
-  }
-
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-      keys.push.apply(keys, symbols);
-    }
-
-    return keys;
-  }
-
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-      }
-    }
-
-    return target;
   }
 
   function leftPadding(string, padLength, character) {
@@ -165,6 +169,14 @@
     }
   };
 
+  EventEmitter.prototype.removeAllListeners = function (event) {
+    if (!event) {
+      this.events = {};
+    } else if (Array.isArray(this.events[event])) {
+      this.events[event] = [];
+    }
+  };
+
   EventEmitter.prototype.emit = function (event) {
     var _this2 = this;
 
@@ -252,14 +264,15 @@
     setParams(defaultParams);
 
     function updateCounters(precision, roundedValue) {
+      var unitsPerGroup = groupedUnits[precision];
       totalCounters[precision] = roundedValue;
 
       if (precision === DAYS) {
-        counters[precision] = roundedValue;
+        counters[precision] = Math.abs(roundedValue);
       } else if (roundedValue >= 0) {
-        counters[precision] = mod(roundedValue, groupedUnits[precision]);
+        counters[precision] = mod(roundedValue, unitsPerGroup);
       } else {
-        counters[precision] = groupedUnits[precision] - mod(roundedValue, groupedUnits[precision]);
+        counters[precision] = mod(unitsPerGroup - mod(roundedValue, unitsPerGroup), unitsPerGroup);
       }
     }
 
@@ -459,6 +472,9 @@
         }
       }
 
+      values = values.map(function (value) {
+        return parseInt(value, 10);
+      });
       var secondTenths = values[SECOND_TENTHS_POSITION];
       var seconds = values[SECONDS_POSITION] + calculateIntegerUnitQuotient(secondTenths, SECOND_TENTHS_PER_SECOND);
       var minutes = values[MINUTES_POSITION] + calculateIntegerUnitQuotient(seconds, SECONDS_PER_MINUTE);
@@ -580,6 +596,15 @@
       eventEmitter.removeListener(eventType, listener);
     }
     /**
+     * [removeAllEventListeners Removes all events listeners for the given type, no type to remove all types]
+     * @param  {string} [eventType]  [event to remove listener]
+     */
+
+
+    function removeAllEventListeners(eventType) {
+      eventEmitter.removeAllListeners(eventType);
+    }
+    /**
      * [dispatchEvent dispatches an event]
      * @param  {string} eventType [event to dispatch]
      * @param data
@@ -653,13 +678,14 @@
       this.addEventListener = addEventListener;
       this.on = addEventListener;
       this.removeEventListener = removeEventListener;
+      this.removeAllEventListeners = removeAllEventListeners;
       this.off = removeEventListener;
     }
   }
 
   exports.Timer = Timer;
-  exports.default = Timer;
+  exports["default"] = Timer;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));

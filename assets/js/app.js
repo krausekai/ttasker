@@ -83,14 +83,16 @@ const timers = {
 	reset: function () {
 		for (let timer of this.timers) {
 			let wasRunning = timer.timer.isRunning();
-			timer.timer.reset();
+			timer.timer.stop(); // reset values (including configured startValues)
+			timer.timer.start(); // update the display as zero'd out
+			timer.timer.pause();
 			if (!wasRunning) timer.timer.pause();
 		}
 	},
 	timers: []
 };
 
-function drawTimerDisplay(id) {
+function drawTimerDisplay(id, time) {
 	let timer = new easytimer.Timer();
 	let instance = document.getElementById(id);
 	let name = instance.getElementsByClassName("timerName")[0].innerText;
@@ -122,7 +124,8 @@ function drawTimerDisplay(id) {
 
 	let resetButton = instance.getElementsByClassName("reset")[0];
 	resetButton.addEventListener("click", function (e) {
-		timer.reset();
+		timer.stop(); // reset values (including configured startValues)
+		timer.start(); // update the display as zero'd out
 		timer.pause();
 	}, true);
 
@@ -143,13 +146,13 @@ function drawTimerDisplay(id) {
 	}, true);
 
 	// If pause() is called before start() at creation, Timer() may be dereferenced
-	// So, create a reference with start() and display the timer at 00:00:00
+	// So, create a reference with start() and display the timer at 00:00:00 (or stored time)
 	timers.add(name, timer);
-	timer.start();
+	timer.start({startValues: time});
 	timer.pause();
 }
 
-function drawTimerCell(name) {
+function drawTimerCell(name, time) {
 	name = name || document.getElementById("timersMenuBar").getElementsByTagName("input")[0].value;
 	if (!name || name && timers.get(name)) return;
 
@@ -170,7 +173,7 @@ function drawTimerCell(name) {
 
 	cell.innerHTML += data;
 
-	drawTimerDisplay(id);
+	drawTimerDisplay(id, time);
 }
 
 function clearTimerForm() {
@@ -359,7 +362,14 @@ window.onload = function () {
 		if (settingsData.timers) {
 			for (i in settingsData.timers) {
 				let entry = settingsData.timers[i];
-				if (entry.active) drawTimerCell(entry.name, entry.time);
+
+				let time;
+				let history = entry.history[entry.history.length-1];
+				if (history?.date === window._date) {
+					time = history?.time;
+				}
+
+				if (entry.active) drawTimerCell(entry.name, time);
 			}
 		}
 

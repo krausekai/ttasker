@@ -4,10 +4,6 @@ const self = module.exports = {};
 	SESSION & DATE
 */
 
-const getSession = function() {
-	return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-}
-
 const getDate = function() {
 	// Get today's date
 	let date = new Date();
@@ -26,14 +22,12 @@ const getDate = function() {
 	return dateToday;
 }
 
-let session = getSession();
-let date = getDate();
+window._date = getDate();
 function doSessionManagement () {
-	// re-initialize session, date & timers
+	// re-initialize session
 	try {
-		if (date !== getDate()) {
-			session = getSession();
-			date = getDate();
+		if (window._date !== getDate()) {
+			window._date = getDate();
 			if (timers) timers.reset();
 		}
 	} catch(e){}
@@ -125,31 +119,22 @@ self.saveSettings = function() {
 			let histLen = timerEntry.history.length - 1;
 			let newTimeValues = JSON.parse(JSON.stringify(timer.getTimeValues()));
 			let newHistory = {
-				session: session,
-				date: date,
-				times: [newTimeValues]
+				date: window._date,
+				time: [newTimeValues]
 			}
+
 			let zeroCheck = newTimeValues.seconds || newTimeValues.minutes || newTimeValues.hours || newTimeValues.days;
 
 			// Create a new history item if this is a new timer session
 			if (!timerEntry.history[histLen] || timerEntry.history[histLen].date !== newHistory.date) {
 				// Do not push empty times to the history list
-				if (zeroCheck > 0) {
-					timerEntry.history.push(newHistory);
-				}
+				if (zeroCheck > 0) timerEntry.history.push(newHistory);
 			}
 			// Otherwise, update the current date's stored time
+			// Note: A reset time will also reset stored History time
 			else if (timerEntry.history[histLen] && timerEntry.history[histLen].date == newHistory.date) {
-				// if session is same then overwrite time
-				// Note: A reset time will also reset stored History time
-				if (timerEntry.history[histLen].session === session) {
-					timerEntry.history[histLen].times[timerEntry.history[histLen].times.length-1] = newTimeValues;
-				}
-				// if session is diff then add time
-				else if (timerEntry.history[histLen].session !== session) {
-					timerEntry.history[histLen].times.push(newTimeValues);
-					timerEntry.history[histLen].session = session;
-				}
+				if (zeroCheck > 0) timerEntry.history[histLen].time = newTimeValues;
+				else timerEntry.history.pop();
 			}
 
 			self.data.timers[name] = timerEntry;

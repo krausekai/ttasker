@@ -90,17 +90,17 @@ function scrollSpeed (event) {
 
 	// walk up the DOM to find the parent scrollable element
 	let scrollingElement = getScrollingElement(event.target);
+	if (!scrollingElement.scrollTo) return;
 
 	// change the scroll distance by element height, capped to window height
-	let dist = (Math.min(scrollingElement.offsetHeight, window.outerHeight) || 0) / 4.2;
+	let dist = (Math.min(scrollingElement.offsetHeight, window.innerHeight) || 0) / 5;
 	if (delta > 0) dist = dist - (dist * 2);
 
 	// override scrollTo position
-	if (scrollingElement.scrollTo) {
-		scrollingElement.scrollTo({
-			"top": scrollingElement.scrollTop + dist
-		});
-	}
+	scrollingElement.scrollTo({
+		"top": scrollingElement.scrollTop + dist
+	});
+
 	event.preventDefault();
 }
 
